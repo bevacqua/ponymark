@@ -1,0 +1,23 @@
+{
+  "name": "ponymark",
+  "description": "Next-generation PageDown fork",
+  "homepage": "https://github.com/bevacqua/ponymark",
+  "version": "0.1.0",
+  "author": {
+    "name": "Nicolas Bevacqua",
+    "email": "hello@bevacqua.io",
+    "url": "http://ponyfoo.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bevacqua/ponymark.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bevacqua/ponymark/issues"
+  },
+  "main": "ponymark.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
