@@ -16,8 +16,6 @@
     "url": "https://github.com/bevacqua/ponymark/issues"
   },
   "main": "ponymark.js",
-  "dependencies": {
-  },
-  "devDependencies": {
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

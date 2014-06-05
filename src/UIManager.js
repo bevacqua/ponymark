@@ -121,10 +121,10 @@ function UIManager (postfix, panels, undoManager, previewManager, commandManager
     var image = button.getElementsByTagName('span')[0];
     if (isEnabled) {
       button.onmouseover = function () {
-        image.style.backgroundPosition = this.XShift + '' '' + highlightYShift;
+        image.style.backgroundPosition = this.XShift + ' ' + highlightYShift;
       };
       button.onmouseout = function () {
-        image.style.backgroundPosition = this.XShift + '' '' + normalYShift;
+        image.style.backgroundPosition = this.XShift + ' ' + normalYShift;
       };
       button.onmouseout();
 
