@@ -1,5 +1,6 @@
 'use strict';
 
+var doc = global.document;
 var ua = require('./ua');
 var util = require('./util');
 var TextareaState = require('./TextareaState');
@@ -92,17 +93,6 @@ function UIManager (postfix, panels, undoManager, previewManager, commandManager
       }
 
       var chunks = state.getChunks();
-
-      function fixupInputArea () {
-        inputBox.focus();
-
-        if (chunks) {
-          state.setChunks(chunks);
-        }
-        state.restore();
-        previewManager.refresh();
-      }
-
       var noCleanup = button.textOp(chunks, fixupInputArea);
 
       if (!noCleanup) {
@@ -111,6 +101,16 @@ function UIManager (postfix, panels, undoManager, previewManager, commandManager
     }
     if (button.execute) {
       button.execute(undoManager);
+    }
+
+    function fixupInputArea () {
+      inputBox.focus();
+
+      if (chunks) {
+        state.setChunks(chunks);
+      }
+      state.restore();
+      previewManager.refresh();
     }
   };
 
@@ -228,8 +228,7 @@ function UIManager (postfix, panels, undoManager, previewManager, commandManager
       }
     };
 
-    var win = /win/.test(nav.platform.toLowerCase());
-    var redoTitle = getString(win ? 'redo' : 'redomac');
+    var redoTitle = getString(ua.isWidnows ? 'redo' : 'redomac');
 
     buttons.redo = makeButton('pmk-redo-button', redoTitle, '-220px', null);
     buttons.redo.execute = function (manager) {

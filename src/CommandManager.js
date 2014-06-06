@@ -94,7 +94,7 @@ $.addLinkDef = function (chunk, linkDef) {
 
   function addDefNumber (def) {
     refNumber++;
-    def = def.replace(/^[ ]{0,3}\[(\d+)\]:/, ''  ['' + refNumber + '']:'');
+    def = def.replace(/^[ ]{0,3}\[(\d+)\]:/, '  [' + refNumber + ']:');
     defs += '\n' + def;
   }
 
@@ -169,27 +169,6 @@ $.doLinkOrImage = function (chunk, postProcessing, isImage) {
     }
     var that = this;
 
-    function linkEnteredCallback (link) {
-      if (link !== null) {
-        chunk.selection = (' ' + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, '$1\\').substr(1);
-
-        var linkDef = ' [999]: ' + properlyEncoded(link);
-        var num = that.addLinkDef(chunk, linkDef);
-        chunk.startTag = isImage ? '![' : '[';
-        chunk.endTag = '][' + num + ']';
-
-        if (!chunk.selection) {
-          if (isImage) {
-            chunk.selection = that.getString('imagedescription');
-          }
-          else {
-            chunk.selection = that.getString('linkdescription');
-          }
-        }
-      }
-      postProcessing();
-    };
-
     if (isImage) {
       if (!this.hooks.insertImageDialog(linkEnteredCallback)){
         ui.prompt('prompt-image', linkEnteredCallback);
@@ -198,6 +177,27 @@ $.doLinkOrImage = function (chunk, postProcessing, isImage) {
       ui.prompt('prompt-link', linkEnteredCallback);
     }
     return true;
+  }
+
+  function linkEnteredCallback (link) {
+    if (link !== null) {
+      chunk.selection = (' ' + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, '$1\\').substr(1);
+
+      var linkDef = ' [999]: ' + properlyEncoded(link);
+      var num = that.addLinkDef(chunk, linkDef);
+      chunk.startTag = isImage ? '![' : '[';
+      chunk.endTag = '][' + num + ']';
+
+      if (!chunk.selection) {
+        if (isImage) {
+          chunk.selection = that.getString('imagedescription');
+        }
+        else {
+          chunk.selection = that.getString('linkdescription');
+        }
+      }
+    }
+    postProcessing();
   }
 };
 

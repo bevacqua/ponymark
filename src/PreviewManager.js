@@ -1,20 +1,28 @@
+'use strict';
+
+var doc = global.document;
+var ua = require('./ua');
+var util = require('./util');
+var parse = require('./parse');
+var position = require('./position');
+
 function PreviewManager (panels, previewRefreshCallback) {
   var managerObj = this;
   var timeout;
   var elapsedTime;
   var oldInputText;
   var maxDelay = 3000;
-  var startType = "delayed"; // The other legal value is "manual"
+  var startType = 'delayed'; // The other legal value is 'manual'
 
   // Adds event listeners to elements
   var setupEvents = function (inputElem, listener) {
 
-    util.addEvent(inputElem, "input", listener);
+    util.addEvent(inputElem, 'input', listener);
     inputElem.onpaste = listener;
     inputElem.ondrop = listener;
 
-    util.addEvent(inputElem, "keypress", listener);
-    util.addEvent(inputElem, "keydown", listener);
+    util.addEvent(inputElem, 'keypress', listener);
+    util.addEvent(inputElem, 'keydown', listener);
   };
 
   var getDocScrollTop = function () {
@@ -23,13 +31,9 @@ function PreviewManager (panels, previewRefreshCallback) {
 
     if (window.innerHeight) {
       result = window.pageYOffset;
-    }
-    else
-    if (doc.documentElement && doc.documentElement.scrollTop) {
+    } else if (doc.documentElement && doc.documentElement.scrollTop) {
       result = doc.documentElement.scrollTop;
-    }
-    else
-    if (doc.body) {
+    } else if (doc.body) {
       result = doc.body.scrollTop;
     }
 
@@ -40,21 +44,20 @@ function PreviewManager (panels, previewRefreshCallback) {
 
     // If there is no registered preview panel
     // there is nothing to do.
-    if (!panels.preview)
+    if (!panels.preview) {
       return;
-
+    }
 
     var text = panels.input.value;
     if (text && text == oldInputText) {
       return; // Input text hasn't changed.
-    }
-    else {
+    } else {
       oldInputText = text;
     }
 
     var prevTime = new Date().getTime();
 
-    text = ultramarked(text);
+    text = parse(text);
 
     // Calculate the processing time of the HTML creation.
     // It's used as the delay time in the event listener.
@@ -72,11 +75,11 @@ function PreviewManager (panels, previewRefreshCallback) {
       timeout = void 0;
     }
 
-    if (startType !== "manual") {
+    if (startType !== 'manual') {
 
       var delay = 0;
 
-      if (startType === "delayed") {
+      if (startType === 'delayed') {
         delay = elapsedTime;
       }
 
@@ -103,7 +106,7 @@ function PreviewManager (panels, previewRefreshCallback) {
   this.refresh = function (requiresRefresh) {
 
     if (requiresRefresh) {
-      oldInputText = "";
+      oldInputText = '';
       makePreviewHtml();
     }
     else {
@@ -169,7 +172,7 @@ function PreviewManager (panels, previewRefreshCallback) {
 
     var fullTop = position.getTop(panels.input) - getDocScrollTop();
 
-    if (uaSniffed.isIE) {
+    if (ua.isIE) {
       setTimeout(function () {
         window.scrollBy(0, fullTop - emptyTop);
       }, 0);

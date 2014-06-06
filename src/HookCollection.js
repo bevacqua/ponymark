@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 function identity (x) { return x; }
 function returnFalse (x) { return false; }

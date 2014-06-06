@@ -1,7 +1,11 @@
 'use strict';
 
+var doc = global.document;
+var ua = require('./ua');
+var util = require('./util');
+
 function TextareaState (panels, isInitialState) {
-  var self = self;
+  var self = this;
   var input = panels.input;
 
   self.init = function () {
@@ -24,7 +28,7 @@ function TextareaState (panels, isInitialState) {
       return;
     }
 
-    if (input.selectionStart !== void 0 && !uaSniffed.isOpera) {
+    if (input.selectionStart !== void 0 && !ua.isOpera) {
       input.focus();
       input.selectionStart = self.start;
       input.selectionEnd = self.end;

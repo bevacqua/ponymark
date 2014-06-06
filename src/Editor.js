@@ -1,6 +1,5 @@
 'use strict';
 
-var ultramarked = require('ultramarked');
 var ui = require('./ui');
 var util = require('./util');
 var position = require('./position');
@@ -9,30 +8,31 @@ var UndoManager = require('./UndoManager');
 var UIManager = require('./UIManager');
 var CommandManager = require('./CommandManager');
 var PreviewManager = require('./PreviewManager');
+var HookCollection = require('./HookCollection');
 
 var defaultsStrings = {
-  bold: "Strong <strong> Ctrl+B",
-  boldexample: "strong text"
-  code: "Code Sample <pre><code> Ctrl+K",
-  codeexample: "enter code here"
-  heading: "Heading <h1>/<h2> Ctrl+H",
-  headingexample: "Heading"
-  help: "Markdown Editing Help"
-  hr: "Horizontal Rule <hr> Ctrl+R"
-  image: "Image <img> Ctrl+G",
-  imagedescription: "enter image description here"
-  italic: "Emphasis <em> Ctrl+I",
-  italicexample: "emphasized text"
-  link: "Hyperlink <a> Ctrl+L",
-  linkdescription: "enter link description here",
-  litem: "List item",
-  olist: "Numbered List <ol> Ctrl+O",
-  quote: "Blockquote <blockquote> Ctrl+Q",
-  quoteexample: "Blockquote"
-  redo: "Redo - Ctrl+Y",
-  redomac: "Redo - Ctrl+Shift+Z"
-  ulist: "Bulleted List <ul> Ctrl+U",
-  undo: "Undo - Ctrl+Z"
+  bold: 'Strong <strong> Ctrl+B',
+  boldexample: 'strong text',
+  code: 'Code Sample <pre><code> Ctrl+K',
+  codeexample: 'enter code here',
+  heading: 'Heading <h1>/<h2> Ctrl+H',
+  headingexample: 'Heading',
+  help: 'Markdown Editing Help',
+  hr: 'Horizontal Rule <hr> Ctrl+R',
+  image: 'Image <img> Ctrl+G',
+  imagedescription: 'enter image description here',
+  italic: 'Emphasis <em> Ctrl+I',
+  italicexample: 'emphasized text',
+  link: 'Hyperlink <a> Ctrl+L',
+  linkdescription: 'enter link description here',
+  litem: 'List item',
+  olist: 'Numbered List <ol> Ctrl+O',
+  quote: 'Blockquote <blockquote> Ctrl+Q',
+  quoteexample: 'Blockquote',
+  redo: 'Redo - Ctrl+Y',
+  redomac: 'Redo - Ctrl+Shift+Z',
+  ulist: 'Bulleted List <ul> Ctrl+U',
+  undo: 'Undo - Ctrl+Z'
 };
 
 function Editor (postfix, opts) {
@@ -49,10 +49,8 @@ function Editor (postfix, opts) {
     return options.strings[identifier] || defaultsStrings[identifier];
   }
 
-  postfix = postfix || '';
-
   var self = this;
-  var hooks = self.hooks = new Markdown.HookCollection();
+  var hooks = self.hooks = new HookCollection();
   var panels;
 
   hooks.addNoop('onPreviewRefresh');

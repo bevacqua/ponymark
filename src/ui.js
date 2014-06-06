@@ -36,7 +36,7 @@ function convertTabs (e) {
   ta.selectionStart = ta.selectionEnd = start + 4;
 }
 
-module.exports  {
+module.exports = {
   prompt: prompt,
   convertTabs: convertTabs
 };

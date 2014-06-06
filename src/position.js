@@ -1,5 +1,7 @@
 'use strict';
 
+var doc = global.document;
+
 function getTop (elem, isInner) {
   var result = elem.offsetTop;
   if (!isInner) {
@@ -50,8 +52,8 @@ function getPageSize () {
 };
 
 module.exports = {
-  getTop: getTop
-  getHeight: getHeight
-  getWidth: getWidth
+  getTop: getTop,
+  getHeight: getHeight,
+  getWidth: getWidth,
   getPageSize: getPageSize
 };

@@ -1,5 +1,6 @@
-'use strict'
+'use strict';
 
+var ua = require('./ua');
 var util = require('./util');
 var re = RegExp;
 
@@ -61,7 +62,7 @@ Chunks.prototype.skipLines = function (nLinesBefore, nLinesAfter, findExtraNewli
   var regexText;
   var replacementText;
 
-  if (uaSniffed.isChrome) {
+  if (ua.isChrome) {
     'X'.match(/()./);
   }
 
@@ -75,15 +76,15 @@ Chunks.prototype.skipLines = function (nLinesBefore, nLinesAfter, findExtraNewli
   this.after = this.after + re.$1;
 
   if (this.before) {
-    regexText = replacementText = "";
+    regexText = replacementText = '';
 
     while (nLinesBefore--) {
-      regexText += "\\n?";
-      replacementText += "\n";
+      regexText += '\\n?';
+      replacementText += '\n';
     }
 
     if (findExtraNewlines) {
-      regexText = "\\n*";
+      regexText = '\\n*';
     }
     this.before = this.before.replace(new re(regexText + '$', ''), replacementText);
   }
