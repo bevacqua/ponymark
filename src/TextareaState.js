@@ -1,6 +1,7 @@
 'use strict';
 
 var doc = global.document;
+var Chunks = require('./Chunks');
 var ua = require('./ua');
 var util = require('./util');
 

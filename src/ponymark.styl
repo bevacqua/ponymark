@@ -1,0 +1,43 @@
+@import 'icons'
+
+c-border = rgba(#000, 0.2)
+c-hover = rgba(#000, 0.05)
+
+.pmk-button-row
+  padding 0px
+  margin 8px 0 4px
+
+.pmk-button
+  display inline-block
+  list-style none
+  cursor pointer
+  padding 2px
+  border 2px solid transparent
+
+  &:hover
+    border-bottom-color c-border
+    border-right-color c-border
+    background-color c-hover
+
+  > span
+    background-image url(uri-icons)
+    background-repeat no-repeat
+    background-position 0px 0px
+    width 20px
+    height 20px
+    display inline-block
+
+.pmk-spacer
+  width 1px
+  height 20px
+  margin 0 6px
+  background-color c-border
+  display inline-block
+  list-style none
+
+.pmk-input
+  min-height 60px
+  max-height 500px
+  line-height 1.2
+  height 180px
+  width 100%

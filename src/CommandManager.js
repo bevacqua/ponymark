@@ -509,7 +509,7 @@ $.doHeading = function (chunk, postProcessing) {
   if (!chunk.selection) {
     chunk.startTag = '## ';
     chunk.selection = this.getString('headingexample');
-    chunk.endTag = ' ##';
+    chunk.endTag = '';
     return;
   }
 
@@ -531,17 +531,13 @@ $.doHeading = function (chunk, postProcessing) {
   chunk.startTag = chunk.endTag = '';
   chunk.skipLines(1, 1);
 
-  var headerLevelToCreate = headerLevel == 0 ? 2 : headerLevel - 1;
+  var headerLevelToCreate = headerLevel == 1 ? 2 : headerLevel - 1;
   if (headerLevelToCreate > 0) {
-    var headerChar = headerLevelToCreate >= 2 ? '-' : '=';
-    var len = chunk.selection.length;
-    if (len > settings.lineLength) {
-      len = settings.lineLength;
-    }
     chunk.endTag = '\n';
-    while (len--) {
-      chunk.endTag += headerChar;
+    while (headerLevelToCreate--) {
+      chunk.startTag += '#';
     }
+    chunk.startTag += ' ';
   }
 };
 

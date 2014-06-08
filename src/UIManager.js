@@ -169,18 +169,15 @@ function UIManager (postfix, panels, undoManager, previewManager, commandManager
     var highlightYShift = '-40px';
 
     var buttonRow = document.createElement('ul');
-    buttonRow.id = 'pmk-button-row' + postfix;
+    buttonRow.id = 'pmk-button-row-' + postfix;
     buttonRow.className = 'pmk-button-row';
     buttonRow = buttonBar.appendChild(buttonRow);
-    var xPosition = 0;
 
     function makeButton (id, title, XShift, textOp) {
       var button = document.createElement('li');
-      button.className = 'pmk-button';
-      button.style.left = xPosition + 'px';
-      xPosition += 25;
+      button.className = 'pmk-button ' + id;
       var buttonImage = document.createElement('span');
-      button.id = id + postfix;
+      button.id = id + '-' + postfix;
       button.appendChild(buttonImage);
       button.title = title;
       button.XShift = XShift;
@@ -194,10 +191,9 @@ function UIManager (postfix, panels, undoManager, previewManager, commandManager
 
     function makeSpacer (num) {
       var spacer = document.createElement('li');
-      spacer.className = 'pmk-spacer pmk-spacer' + num;
-      spacer.id = 'pmk-spacer' + num + postfix;
+      spacer.className = 'pmk-spacer pmk-spacer-' + num;
+      spacer.id = 'pmk-spacer-' + postfix + '-' + num;
       buttonRow.appendChild(spacer);
-      xPosition += 25;
     }
 
     buttons.bold = makeButton('pmk-bold-button', getString('bold'), '0px', bindCommand('doBold'));
@@ -242,7 +238,7 @@ function UIManager (postfix, panels, undoManager, previewManager, commandManager
       var helpButtonImage = document.createElement('span');
       helpButton.appendChild(helpButtonImage);
       helpButton.className = 'pmk-button pmk-help-button';
-      helpButton.id = 'pmk-help-button' + postfix;
+      helpButton.id = 'pmk-help-button-' + postfix;
       helpButton.XShift = '-240px';
       helpButton.isHelp = true;
       helpButton.style.right = '0px';

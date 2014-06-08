@@ -1,9 +1,9 @@
 'use strict';
 
 var doc = global.document;
-var ui = require('./src/ui');
-var util = require('./src/util');
-var Editor = require('./src/Editor');
+var ui = require('./ui');
+var util = require('./util');
+var Editor = require('./Editor');
 var nextId = 0;
 
 function convertTabs () {
