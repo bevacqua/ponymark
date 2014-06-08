@@ -18,6 +18,7 @@
   },
   "main": "src/ponymark.js",
   "dependencies": {
+    "raf": "^2.0.0",
     "ultramarked": "^0.6.0"
   },
   "devDependencies": {

@@ -1,5 +1,6 @@
 'use strict';
 
+var raf = require('raf');
 var promptLink = require('./promptLink');
 var promptRender = require('./promptRender');
 var fireEvent = require('./fireEvent');
@@ -16,33 +17,21 @@ function draw (cb) {
     init(cache, cb);
   }
   cache.dialog.classList.add('pmk-prompt-open');
+  raf(focus);
+  return cache.dialog;
+}
+
+function focus () {
   cache.input.focus();
 }
 
 function init (dom, cb) {
   promptLink.init(dom, cb);
-  //arrangeImageUpload(ctx);
+  arrangeImageUpload(dom);
 }
 
-function arrangeImageUpload (ctx) {
-
-/*
-  section.upload-area
-    p.upload-drop-text='Drop here to begin upload'
-
-    p.upload-progress-text='Uploading file...'
-
-    section.upload-form
-      // {{#legend}}
-      p.upload-legend='{{{legend}}}'
-      // {{/legend}}
-      // {{^legend}}
-      p.upload-legend
-        span='Or, upload one. '
-        em='You can also drag and drop over here.'
-      // {{/legend}}
-      input.upload-input(type='file', name='file')
-      */
+function arrangeImageUpload (dom) {
+  var up = promptRender.uploads(dom);
 /*
     function getExtensionRegex(fileType){
         if(fileType === 'image'){

@@ -2,12 +2,20 @@
 
 var promptLink = require('./promptLink');
 var promptImage = require('./promptImage');
+var links;
+var images;
 
 function prompt (type, cb) {
+  if (links) {
+    links.classList.remove('pmk-prompt-open');
+  }
+  if (images) {
+    images.classList.remove('pmk-prompt-open');
+  }
   if (type === 'link') {
-    promptLink.draw(preprocess);
+    links = promptLink.draw(preprocess);
   } else if (type === 'image') {
-    promptImage.draw(preprocess);
+    images = promptImage.draw(preprocess);
   }
 
   function preprocess (text) {

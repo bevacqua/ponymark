@@ -1,5 +1,6 @@
 'use strict';
 
+var raf = require('raf');
 var promptRender = require('./promptRender');
 var cache;
 
@@ -14,6 +15,11 @@ function draw (cb) {
     init(cache, cb);
   }
   cache.dialog.classList.add('pmk-prompt-open');
+  raf(focus);
+  return cache.dialog;
+}
+
+function focus () {
   cache.input.focus();
 }
 

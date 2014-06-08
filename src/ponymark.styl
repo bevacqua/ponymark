@@ -49,7 +49,7 @@ z-prompt = 500
 .pmk-prompt
   display none
   position fixed
-  margin-top -100px
+  margin-top -150px
   margin-left -210px
   top 50%
   left 50%
@@ -80,3 +80,30 @@ z-prompt = 500
 
 .pmk-prompt-ok
   margin-left 10px
+
+.pmk-prompt-upload
+  position relative
+  overflow hidden // reason: see `pmk-prompt-fileupload` styles below
+  width 100%
+  height 60px
+
+.pmk-prompt-browse
+  font-weight bold
+
+.pmk-prompt-dragdrop
+  font-style italic
+  margin-left 10px
+
+.pmk-prompt-fileupload
+  position absolute
+  top 0
+  left -100% // reason: the button apparently doesn't get the `cursor: pointer` style
+  right 0
+  bottom 0
+  opacity 0
+  width 200%
+  cursor pointer
+
+.pmk-prompt-drop,
+.pmk-prompt-uploading
+  display none
