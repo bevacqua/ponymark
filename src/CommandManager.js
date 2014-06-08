@@ -1,5 +1,6 @@
 'use strict';
 
+var ui = require('./ui')
 var settings = { lineLength: 72 };
 var re = RegExp;
 
@@ -171,10 +172,10 @@ $.doLinkOrImage = function (chunk, postProcessing, isImage) {
 
     if (isImage) {
       if (!this.hooks.insertImageDialog(linkEnteredCallback)){
-        ui.prompt('prompt-image', linkEnteredCallback);
+        ui.prompt('image', linkEnteredCallback);
       }
     } else {
-      ui.prompt('prompt-link', linkEnteredCallback);
+      ui.prompt('link', linkEnteredCallback);
     }
     return true;
   }

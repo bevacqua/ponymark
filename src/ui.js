@@ -1,22 +1,24 @@
 'use strict';
 
-function prompt (partialName, cb) {
-  var body = $('body');
-  var partial = nbrut.tt.partial(partialName, { complete: complete });
+var promptLink = require('promptLink');
 
-  partial.appendTo(body);
+function prompt (type, cb) {
+  if (type === 'link') {
+    promptLink.draw(preprocess);
+  } else if (type === 'image') {
+    promptImage.draw(preprocess);
+  }
 
-  function complete (text){
+  function preprocess (text) {
     if (text !== null){ // Fixes common pasting errors.
       text = text.replace(/^http:\/\/(https?|ftp):\/\//, '$1://');
       if (text[0] !== '/' && !/^(?:https?|ftp):\/\//.test(text)){
         text = 'http://' + text;
       }
     }
-
     cb(text);
   }
-};
+}
 
 function convertTabs (e) {
   var ta = e.target;
