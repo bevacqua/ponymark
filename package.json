@@ -2,7 +2,7 @@
   "name": "ponymark",
   "description": "Next-generation PageDown fork",
   "homepage": "https://github.com/bevacqua/ponymark",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": {
     "name": "Nicolas Bevacqua",
     "email": "hello@bevacqua.io",
