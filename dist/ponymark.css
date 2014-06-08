@@ -1,6 +1,6 @@
 /**
  * ponymark - Next-generation PageDown fork
- * @version v0.1.7
+ * @version v0.1.8
  * @link https://github.com/bevacqua/ponymark
  * @license MIT
  */
@@ -42,4 +42,39 @@
   line-height: 1.2;
   height: 180px;
   width: 100%;
+}
+.pmk-prompt {
+  display: none;
+  position: fixed;
+  margin-top: -110px;
+  margin-left: -210px;
+  top: 50%;
+  left: 50%;
+  padding: 15px;
+  width: 420px;
+  max-width: 75%;
+  font-size: 100%;
+  text-align: left;
+  background-color: #fff;
+  border-top: 2px solid rgba(0,0,0,0.2);
+  border-left: 2px solid rgba(0,0,0,0.2);
+  box-radius: 6px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  z-index: 500;
+}
+.pmk-prompt-open {
+  display: block;
+}
+.pmk-prompt-input {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+.pmk-prompt-buttons {
+  margin-top: 15px;
+  text-align: center;
+}
+.pmk-prompt-ok {
+  margin-left: 10px;
 }
