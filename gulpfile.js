@@ -58,7 +58,7 @@ gulp.task('highlight', ['styles'], function () {
     .pipe(rename('highlight.min.css'))
     .pipe(minifyCSS())
     .pipe(size())
-    .pipe(header(succint, { pkg : pkg } ))
+    .pipe(header(succss, { pkg : pkg } ))
     .pipe(gulp.dest('./dist'));
 });
 
@@ -72,7 +72,7 @@ gulp.task('styles', ['clean', 'bump'], function () {
     .pipe(rename('ponymark.min.css'))
     .pipe(minifyCSS())
     .pipe(size())
-    .pipe(header(succint, { pkg : pkg } ))
+    .pipe(header(succss, { pkg : pkg } ))
     .pipe(gulp.dest('./dist'));
 });
 
