@@ -1,7 +1,11 @@
 @import 'icons'
 
-c-border = rgba(#000, 0.2)
 c-hover = rgba(#000, 0.05)
+c-border = rgba(#000, 0.2)
+c-prompt-bg = #fff
+c-prompt-border = c-border
+c-prompt-shadow = c-prompt-border
+z-prompt = 500
 
 .pmk-button-row
   padding 0px
@@ -41,3 +45,38 @@ c-hover = rgba(#000, 0.05)
   line-height 1.2
   height 180px
   width 100%
+
+.pmk-prompt
+  display none
+  position fixed
+  margin-top -110px
+  margin-left -210px
+  top 50%
+  left 50%
+  padding 15px
+  width 420px
+  max-width 75%
+  font-size 100%
+  text-align left
+  background-color c-prompt-bg
+  border-top 2px solid c-prompt-border
+  border-left 2px solid c-prompt-border
+  box-radius 6px
+  box-shadow 2px 2px 5px c-prompt-shadow
+  z-index z-prompt
+
+.pmk-prompt-open
+  display block
+
+.pmk-prompt-input
+  display block
+  margin-top 20px
+  margin-bottom 15px
+  width 100%
+
+.pmk-prompt-buttons
+  margin-top 15px
+  text-align center
+
+.pmk-prompt-ok
+  margin-left 10px

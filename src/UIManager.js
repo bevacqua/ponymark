@@ -1,6 +1,7 @@
 'use strict';
 
 var doc = global.document;
+var c = doc.createElement.bind(doc);
 var ua = require('./ua');
 var util = require('./util');
 var TextareaState = require('./TextareaState');
@@ -168,15 +169,15 @@ function UIManager (postfix, panels, undoManager, previewManager, commandManager
     var disabledYShift = '-20px';
     var highlightYShift = '-40px';
 
-    var buttonRow = document.createElement('ul');
+    var buttonRow = c('ul');
     buttonRow.id = 'pmk-button-row-' + postfix;
     buttonRow.className = 'pmk-button-row';
     buttonRow = buttonBar.appendChild(buttonRow);
 
     function makeButton (id, title, XShift, textOp) {
-      var button = document.createElement('li');
+      var button = c('li');
       button.className = 'pmk-button ' + id;
-      var buttonImage = document.createElement('span');
+      var buttonImage = c('span');
       button.id = id + '-' + postfix;
       button.appendChild(buttonImage);
       button.title = title;
@@ -190,7 +191,7 @@ function UIManager (postfix, panels, undoManager, previewManager, commandManager
     }
 
     function makeSpacer (num) {
-      var spacer = document.createElement('li');
+      var spacer = c('li');
       spacer.className = 'pmk-spacer pmk-spacer-' + num;
       spacer.id = 'pmk-spacer-' + postfix + '-' + num;
       buttonRow.appendChild(spacer);
@@ -234,8 +235,8 @@ function UIManager (postfix, panels, undoManager, previewManager, commandManager
     };
 
     if (helpOptions) {
-      var helpButton = document.createElement('li');
-      var helpButtonImage = document.createElement('span');
+      var helpButton = c('li');
+      var helpButtonImage = c('span');
       helpButton.appendChild(helpButtonImage);
       helpButton.className = 'pmk-button pmk-help-button';
       helpButton.id = 'pmk-help-button-' + postfix;

@@ -1,6 +1,7 @@
 'use strict';
 
-var promptLink = require('promptLink');
+var promptLink = require('./promptLink');
+var promptImage = require('./promptImage');
 
 function prompt (type, cb) {
   if (type === 'link') {

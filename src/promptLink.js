@@ -1,41 +1,42 @@
 'use strict';
 
-/*
-section#prompt-link-template.template
-  article.dialog.markdown-prompt-dialog
-    a.action.close(title='Close')='Close'
-    header.dialog-title
-      h1.underline='Insert Link'
+var promptRender = require('./promptRender');
+var cache;
 
-    section.dialog-body
-      p='http://example.com/ "optional title"'
-      p
-        input.prompt-input(type='text', placeholder='Type or paste the url to your link', data-focus)
-
-    footer.dialog-buttons
-      a.close(title='Cancel')='Cancel'
-      button.button.small.ok-button='OK'
-*/
 function draw (cb) {
-  init(cb);
+  if (!cache) {
+    cache = promptRender({
+      id: 'pmk-link-prompt',
+      title: 'Insert Link',
+      description: 'Type or paste the url to your link',
+      placeholder: 'http://example.com/ "optional title"'
+    });
+    init(cache, cb);
+  }
+  cache.dialog.classList.add('pmk-prompt-open');
+  cache.input.focus();
 }
 
-function init (cb) {
-  var dialog = ctx.elements;
-  var input = dialog.find('.prompt-input');
+function init (dom, cb) {
+  dom.cancel.addEventListener('click', close);
+  dom.close.addEventListener('click', close);
+  dom.ok.addEventListener('click', ok);
 
-  dialog.find('.ok-button').on('click', ok);
-  input.on('keydown', function(e){
-    if(e.which === 13){
+  dom.input.addEventListener('keypress', function (e) {
+    var key = e.which || e.keyCode;
+    if (key === 13) {
       ok();
-      return false;
+      e.preventDefault();
     }
   });
 
-  function ok(){
-    dialog.trigger('container.close');
-    var text = input.val();
-    viewModel.complete(text);
+  function ok () {
+    close();
+    cb(dom.input.value);
+  }
+
+  function close () {
+    dom.dialog.classList.remove('pmk-prompt-open');
   }
 }
 
