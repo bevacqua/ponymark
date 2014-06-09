@@ -1,5 +1,6 @@
 'use strict';
 
+var xhr = require('xhr');
 var raf = require('raf');
 var configure = require('./configure');
 var promptLink = require('./promptLink');
@@ -71,10 +72,6 @@ function arrangeImageUpload (dom) {
 
     up.warning.classList.remove('pmk-warning-show');
 
-    if (!files.length) {
-      warn();
-      return;
-    }
     for (i = 0; i < files.length; i++) {
       file = files[i];
 
@@ -99,12 +96,25 @@ function arrangeImageUpload (dom) {
 
   function go (files) {
     var file = valid(files);
+    if (!file) {
+      return;
+    }
+    var form = new FormData();
+    var options = {
+      'Content-Type': 'multipart/form-data',
+      method: configure.imageUploads.method,
+      url: configure.imageUploads.url,
+      body: form
+    };
+    form.append('image', file, file.name);
     console.log(file);
+    console.log(options);
     up.upload.classList.add('pmk-prompt-uploading');
+    xhr(options, done);
 
-    setTimeout(function () {
+    function done () {
       up.upload.classList.remove('pmk-prompt-uploading');
-    }, 8000);
+    }
   }
 }
 

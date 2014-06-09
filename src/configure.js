@@ -5,7 +5,7 @@ function configure (opts) {
   if (o.imageUploads) {
     if (typeof o.imageUploads === 'string') {
       configure.imageUploads = {
-        verb: 'PUT',
+        method: 'PUT',
         url: o.imageUploads
       };
     } else {

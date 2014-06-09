@@ -16,10 +16,17 @@
   "bugs": {
     "url": "https://github.com/bevacqua/ponymark/issues"
   },
-  "main": "src/ponymark.js",
+  "main": "src/node.js",
+  "browser": "src/ponymark.js",
   "dependencies": {
+    "contra": "^1.6.3",
+    "fs-extra": "^0.9.1",
+    "imgur": "0.0.3",
+    "mkdirp": "^0.5.0",
     "raf": "^2.0.0",
-    "ultramarked": "^0.6.0"
+    "tmp": "0.0.23",
+    "ultramarked": "^0.6.0",
+    "xhr": "^1.8.0"
   },
   "devDependencies": {
     "browserify": "^4.1.3",
