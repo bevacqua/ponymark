@@ -56,6 +56,8 @@ ponymark.configure({
 });
 ```
 
+### Server-Side
+
 Ponymark will send requests to the specified HTTP resource with the user image. The image is named `image` in the `FormData`. As for the server-side, a default implementation is provided, and you can access it as demonstrated below.
 
 ```js
@@ -81,6 +83,20 @@ The HTTP endpoint is expected to return a JSON response like the one below.
 }
 ```
 
+### Markdown Engine
+
+Ponymark uses [**ultramarked**][9] to render your Markdown content. If you are rendering Markdown anywhere else, make sure to use that package, for consistent output. Check out how [Ponymark configures `ultramarked` here][10].
+
+```js
+var ultramarked = require('ultramarked');
+
+ultramarked.setOptions({
+  smartLists: true,
+  ultralight: true,
+  ultrasanitize: true
+});
+```
+
 ## Screenshot
 
 ![screenshot.png][4]
@@ -97,3 +113,5 @@ MIT
 [6]: https://github.com/isagalaev/highlight.js
 [7]: http://github.github.com/github-flavored-markdown/
 [8]: http://blog.ponyfoo.com/2014/05/17/css-the-good-parts "CSS: The Good Parts"
+[9]: https://github.com/bevacqua/ultramarked
+[10]: https://github.com/bevacqua/ponymark/blob/master/src/parse.js
