@@ -1,6 +1,6 @@
 /**
  * ponymark - Next-generation PageDown fork
- * @version v0.1.10
+ * @version v1.0.0
  * @link https://github.com/bevacqua/ponymark
  * @license MIT
  */
@@ -101,13 +101,13 @@
   width: 200%;
   cursor: pointer;
 }
-.pmk-warning {
+.pmk-prompt-error {
   display: none;
   padding: 8px 12px;
   background-color: #a4d4e6;
   border-radius: 3px;
 }
-.pmk-warning-show {
+.pmk-prompt-error-show {
   display: block;
 }
 .pmk-prompt-drop,
