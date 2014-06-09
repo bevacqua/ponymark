@@ -14,6 +14,7 @@ function draw (cb) {
     });
     init(cache, cb);
   }
+  cache.input.value = '';
   cache.dialog.classList.add('pmk-prompt-open');
   raf(focus);
   return cache.dialog;

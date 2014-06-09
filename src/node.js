@@ -47,7 +47,7 @@ function imgurUpload (req, res, fallthrough, image) {
     }
 
     res.end(200, {
-      alt: image.name,
+      alt: image.originalname,
       url: data.links.original
     });
   });
@@ -57,8 +57,7 @@ function fileUpload (req, res, fallthrough, image, opts) {
   contra.waterfall([
     function (next) {
       tmp.tmpName({
-        template: path.join(opts.local, 'XXXXXX'),
-        postfix: path.extname(image.name)
+        template: path.join(opts.local, 'XXXXXX' + image.extension)
       }, next);
     },
     function (temp, next) {
@@ -71,7 +70,7 @@ function fileUpload (req, res, fallthrough, image, opts) {
       fallthrough(err); return;
     }
     res.json(200, {
-      alt: image.name,
+      alt: image.originalname,
       url: opts.localUrl(opts.local, temp)
     });
   });

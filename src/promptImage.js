@@ -19,8 +19,10 @@ function draw (cb) {
     init(cache, cb);
   }
   if (cache.up) {
-    cache.up.warning.classList.remove('pmk-warning-show');
+    cache.up.warning.classList.remove('pmk-prompt-error-show');
+    cache.up.failed.classList.remove('pmk-prompt-error-show');
   }
+  cache.input.value = '';
   cache.dialog.classList.add('pmk-prompt-open');
   raf(focus);
   return cache.dialog;
@@ -34,11 +36,11 @@ function init (dom, cb) {
   promptLink.init(dom, cb);
 
   if (configure.imageUploads) {
-    arrangeImageUpload(dom);
+    arrangeImageUpload(dom, cb);
   }
 }
 
-function arrangeImageUpload (dom) {
+function arrangeImageUpload (dom, cb) {
   var up = promptRender.uploads(dom);
   var dragClass = 'pmk-prompt-upload-dragging';
 
@@ -70,7 +72,7 @@ function arrangeImageUpload (dom) {
   function valid (files) {
     var mime = /^image\//i, i, file;
 
-    up.warning.classList.remove('pmk-warning-show');
+    up.warning.classList.remove('pmk-prompt-error-show');
 
     for (i = 0; i < files.length; i++) {
       file = files[i];
@@ -83,7 +85,7 @@ function arrangeImageUpload (dom) {
   }
 
   function warn (message) {
-    up.warning.classList.add('pmk-warning-show');
+    up.warning.classList.add('pmk-prompt-error-show');
   }
 
   function dragging () {
@@ -94,6 +96,10 @@ function arrangeImageUpload (dom) {
     up.upload.classList.remove(dragClass);
   }
 
+  function close () {
+    cache.dialog.classList.remove('pmk-prompt-open');
+  }
+
   function go (files) {
     var file = valid(files);
     if (!file) {
@@ -102,18 +108,27 @@ function arrangeImageUpload (dom) {
     var form = new FormData();
     var options = {
       'Content-Type': 'multipart/form-data',
+      headers: {
+        Accept: 'application/json'
+      },
       method: configure.imageUploads.method,
       url: configure.imageUploads.url,
       body: form
     };
     form.append('image', file, file.name);
-    console.log(file);
-    console.log(options);
     up.upload.classList.add('pmk-prompt-uploading');
     xhr(options, done);
 
-    function done () {
+    function done (err, xhr, body) {
       up.upload.classList.remove('pmk-prompt-uploading');
+      if (err) {
+        up.failed.classList.add('pmk-prompt-error-show');
+        return;
+      }
+      var json = JSON.parse(body);
+      dom.input.value = json.url + ' "' + json.alt + '"';
+      close();
+      cb(dom.input.value);
     }
   }
 }

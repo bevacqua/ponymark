@@ -43,7 +43,8 @@ module.exports.uploads = function (dom) {
   var fup = 'pmk-prompt-fileupload';
   var up = {
     area: e('section', 'pmk-prompt-upload-area'),
-    warning: e('p', 'pmk-warning', 'Only GIF, JPEG and PNG images are allowed'),
+    warning: e('p', 'pmk-prompt-error pmk-warning', 'Only GIF, JPEG and PNG images are allowed'),
+    failed: e('p', 'pmk-prompt-error pmk-failed', 'Upload failed'),
     upload: e('button', 'pmk-prompt-upload'),
     uploading: e('span', 'pmk-prompt-progress', 'Uploading file...'),
     drop: e('span', 'pmk-prompt-drop', 'Drop here to begin upload'),
@@ -52,6 +53,7 @@ module.exports.uploads = function (dom) {
     input: e('input', fup)
   };
   up.area[ac](up.warning);
+  up.area[ac](up.failed);
   up.area[ac](up.upload);
   up.upload[ac](up.drop);
   up.upload[ac](up.uploading);
