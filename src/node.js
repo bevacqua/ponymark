@@ -54,15 +54,11 @@ function imgurUpload (req, res, fallthrough, image) {
 }
 
 function fileUpload (req, res, fallthrough, image, opts) {
-  var o = {
-    template: path.join(opts.local, 'XXXXXX'),
-    postfix: path.extname(image.name)
-  };
-
   contra.waterfall([
     function (next) {
       tmp.tmpName({
-        template: path.join(opts.local, 'XXXXXX')
+        template: path.join(opts.local, 'XXXXXX'),
+        postfix: path.extname(image.name)
       }, next);
     },
     function (temp, next) {
