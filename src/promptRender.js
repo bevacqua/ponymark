@@ -40,23 +40,27 @@ module.exports = function (opts) {
 };
 
 module.exports.uploads = function (dom) {
+  var fup = 'pmk-prompt-fileupload';
   var up = {
     area: e('section', 'pmk-prompt-upload-area'),
-    desc: e('div', 'pmk-prompt-description'),
-    drop: e('div', 'pmk-prompt-drop', 'Drop here to begin upload'),
-    uploading: e('div', 'pmk-prompt-uploading', 'Uploading file...'),
+    warning: e('p', 'pmk-warning', 'Only GIF, JPEG and PNG images are allowed'),
     upload: e('button', 'pmk-prompt-upload'),
+    uploading: e('span', 'pmk-prompt-progress', 'Uploading file...'),
+    drop: e('span', 'pmk-prompt-drop', 'Drop here to begin upload'),
     browse: e('span', 'pmk-prompt-browse', 'Browse...'),
     dragdrop: e('span', 'pmk-prompt-dragdrop', 'You can also drop files here'),
-    input: e('input', 'pmk-prompt-fileupload')
+    input: e('input', fup)
   };
-  up.area[ac](up.drop);
-  up.area[ac](up.uploading);
+  up.area[ac](up.warning);
   up.area[ac](up.upload);
+  up.upload[ac](up.drop);
+  up.upload[ac](up.uploading);
   up.upload[ac](up.browse);
   up.upload[ac](up.dragdrop);
   up.upload[ac](up.input);
+  up.input.id = fup;
   up.input.type = 'file';
   dom.section[ac](up.area);
+  dom.up = up;
   return up;
 };

@@ -3,6 +3,7 @@
 var doc = global.document;
 var ui = require('./ui');
 var util = require('./util');
+var configure = require('./configure');
 var Editor = require('./Editor');
 var nextId = 0;
 
@@ -38,3 +39,4 @@ module.exports = ponymark;
 
 ponymark.Editor = Editor;
 ponymark.convertTabs = convertTabs;
+ponymark.configure = configure;

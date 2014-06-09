@@ -1,5 +1,6 @@
 @import 'icons'
 
+c-warning = #a4d4e6;
 c-hover = rgba(#000, 0.05)
 c-border = rgba(#000, 0.2)
 c-prompt-bg = #fff
@@ -104,6 +105,34 @@ z-prompt = 500
   width 200%
   cursor pointer
 
-.pmk-prompt-drop,
-.pmk-prompt-uploading
+.pmk-warning
   display none
+  padding 8px 12px
+  background-color c-warning
+  border-radius 3px
+
+.pmk-warning-show
+  display block
+
+.pmk-prompt-drop,
+.pmk-prompt-progress
+  display none
+
+.pmk-prompt-upload-dragging
+  .pmk-prompt-drop
+    display block
+
+  .pmk-prompt-browse,
+  .pmk-prompt-dragdrop
+    display none
+
+.pmk-prompt-uploading
+  pointer-events none
+
+  .pmk-prompt-progress
+    display block
+
+  .pmk-prompt-drop,
+  .pmk-prompt-browse,
+  .pmk-prompt-dragdrop
+    display none

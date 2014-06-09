@@ -23,6 +23,27 @@ var elem = document.querySelector('div');
 ponymark(elem);
 ```
 
+## Image Uploads
+
+Ponymark supports image uploading through your site. Simply configure it before invoking `ponymark`.
+
+```js
+ponymark.configure({
+  imageUploads: '/api/v1/images'
+});
+```
+
+You can specify a verb by passing an object instead. The default verb used is `PUT`.
+
+```js
+ponymark.configure({
+  imageUploads: {
+    verb: 'POST',
+    url: '/api/v0/images'
+  }
+});
+```
+
 ## Screenshot
 
 ![screenshot.png][4]
