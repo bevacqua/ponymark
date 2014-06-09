@@ -2,6 +2,18 @@
 
 > Next-generation [`PageDown`][1] fork
 
+# Features
+
+- Super Modular!
+- _No libraries or frameworks_
+- Clean [CSS styling using prefixes][8]
+- [GitHub Flavored Markdown][7]
+- Syntax Highlighting through [highlight.js][6]
+- Image drag and drop
+- Default image uploading endpoint for the server-side
+- Support for [imgur][5] and local file uploads
+- MIT licensed
+
 ## Install
 
 ```shell
@@ -82,3 +94,6 @@ MIT
 [3]: https://github.com/isagalaev/highlight.js/tree/master/src/styles
 [4]: http://i.imgur.com/BTmLVPR.png
 [5]: http://imgur.com
+[6]: https://github.com/isagalaev/highlight.js
+[7]: http://github.github.com/github-flavored-markdown/
+[8]: http://blog.ponyfoo.com/2014/05/17/css-the-good-parts "CSS: The Good Parts"
