@@ -5,7 +5,8 @@ var path = require('path');
 var fs = require('fs-extra');
 var mkdirp = require('mkdirp');
 var tmp = require('tmp');
-var imgur = require('imgur');
+var imgur = require('imgur-api');
+var imgurClient;
 var defaultLocal = path.resolve('./uploads');
 var production = process.env.NODE_ENV === 'production';
 
@@ -20,7 +21,7 @@ function images (options) {
     localUrl: options.localUrl || defaultLocalUrl
   };
   if (opts.imgur) {
-    imgur.setKey(opts.imgur);
+    imgurClient = imgur(opts.imgur);
   }
   if (!production) {
     mkdirp.sync(opts.local);
@@ -30,7 +31,7 @@ function images (options) {
     var image = req.files ? req.files.image : null;
     if (!image) {
       res.json(400, { error: 'No image received on the back-end' });
-    } else if (opts.imgur) {
+    } else if (imgurClient) {
       imgurUpload(req, res, fallthrough, image);
     } else if (!production) {
       fileUpload(req, res, fallthrough, image, opts);
@@ -41,12 +42,12 @@ function images (options) {
 }
 
 function imgurUpload (req, res, fallthrough, image) {
-  imgur.upload(image.path, function (data) {
+  imgurClient.upload(image.path, function (data) {
     if (data.error) {
       fallthrough(data.error); return;
     }
 
-    res.end(200, {
+    res.json(200, {
       alt: image.originalname,
       url: data.links.original
     });
