@@ -5,7 +5,7 @@ var path = require('path');
 var fs = require('fs-extra');
 var mkdirp = require('mkdirp');
 var tmp = require('tmp');
-var imgur = require('imgur-api');
+var imgur = require('imgur-client');
 var imgurClient;
 var defaultLocal = path.resolve('./uploads');
 var production = process.env.NODE_ENV === 'production';
