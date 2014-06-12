@@ -35,6 +35,16 @@ var elem = document.querySelector('div');
 ponymark(elem);
 ```
 
+You can also pick individual containers for each of the three different parts of the editor. This is useful when you have multiple inputs and then want the preview to be placed somewhere else in the DOM.
+
+```js
+ponymark({
+  buttons: document.querySelector('header'),
+  input: document.querySelector('div'),
+  preview: document.querySelector('footer')
+});
+```
+
 ## Image Uploads
 
 Ponymark supports image uploading through your site. Simply configure it before invoking `ponymark`.

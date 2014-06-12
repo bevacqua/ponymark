@@ -11,14 +11,25 @@ function convertTabs () {
   util.addEventDelegate(doc, 'pmk-input', 'keydown', ui.convertTabs);
 }
 
-function ponymark (container) {
+function ponymark (containers) {
   var postfix = nextId++;
-  markup(container, postfix);
-  var editor = new Editor(postfix);
+  var editor;
+
+  if (Object.prototype.toString.call(containers) !== '[object Object]') {
+    containers = {
+      buttons: containers,
+      input: containers,
+      preview: containers
+    };
+  }
+
+  markup(containers, postfix);
+
+  editor = new Editor(postfix);
   editor.run();
 }
 
-function markup (container, postfix) {
+function markup (containers, postfix) {
   var buttonBar = doc.createElement('div');
   var preview = doc.createElement('div');
   var input = doc.createElement('textarea');
@@ -29,10 +40,11 @@ function markup (container, postfix) {
   preview.className = 'pmk-preview';
   input.id = 'pmk-input-' + postfix;
   input.className = 'pmk-input';
+  input.placeholder = containers.input.getAttribute('placeholder');
 
-  container.appendChild(buttonBar);
-  container.appendChild(input);
-  container.appendChild(preview);
+  containers.buttons.appendChild(buttonBar);
+  containers.input.appendChild(input);
+  containers.preview.appendChild(preview);
 }
 
 module.exports = ponymark;
