@@ -2,6 +2,8 @@
 
 > Next-generation [`PageDown`][1] fork
 
+[**Click here for a demo**][11]
+
 # Features
 
 - Super Modular!
@@ -125,3 +127,4 @@ MIT
 [8]: http://blog.ponyfoo.com/2014/05/17/css-the-good-parts "CSS: The Good Parts"
 [9]: https://github.com/bevacqua/ultramarked
 [10]: https://github.com/bevacqua/ponymark/blob/master/src/parse.js
+[11]: http://codepen.io/bevacqua/full/AlFhD/
