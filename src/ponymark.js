@@ -40,7 +40,7 @@ function markup (containers, postfix) {
   preview.className = 'pmk-preview';
   input.id = 'pmk-input-' + postfix;
   input.className = 'pmk-input';
-  input.placeholder = containers.input.getAttribute('placeholder');
+  input.placeholder = containers.input.getAttribute('placeholder') || '';
 
   containers.buttons.appendChild(buttonBar);
   containers.input.appendChild(input);
