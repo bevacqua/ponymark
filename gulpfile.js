@@ -1,5 +1,6 @@
 'use strict';
 
+var path = require('path');
 var gulp = require('gulp');
 var bump = require('gulp-bump');
 var git = require('gulp-git');
@@ -52,7 +53,9 @@ gulp.task('highlight', ['styles'], function () {
   var pkg = require('./package.json');
 
   return gulp.src('./src/highlight.styl')
-    .pipe(stylus())
+    .pipe(stylus({
+      import: path.resolve('node_modules/nib/index')
+    }))
     .pipe(header(extended, { pkg : pkg } ))
     .pipe(gulp.dest('./dist'))
     .pipe(rename('highlight.min.css'))
@@ -66,7 +69,9 @@ gulp.task('styles', ['clean', 'bump'], function () {
   var pkg = require('./package.json');
 
   return gulp.src('./src/ponymark.styl')
-    .pipe(stylus())
+    .pipe(stylus({
+      import: path.resolve('node_modules/nib/index')
+    }))
     .pipe(header(extended, { pkg : pkg } ))
     .pipe(gulp.dest('./dist'))
     .pipe(rename('ponymark.min.css'))

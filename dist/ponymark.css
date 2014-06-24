@@ -1,6 +1,6 @@
 /**
  * ponymark - Next-generation PageDown fork
- * @version v1.1.4
+ * @version v1.1.6
  * @link https://github.com/bevacqua/ponymark
  * @license MIT
  */
@@ -58,7 +58,9 @@
   background-color: #fff;
   border-top: 2px solid rgba(0,0,0,0.2);
   border-left: 2px solid rgba(0,0,0,0.2);
-  box-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
   z-index: 500;
 }
@@ -98,6 +100,8 @@
   right: 0;
   bottom: 0;
   opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
   width: 200%;
   cursor: pointer;
 }
@@ -105,6 +109,7 @@
   display: none;
   padding: 8px 12px;
   background-color: #a4d4e6;
+  -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 .pmk-prompt-error-show {

@@ -2,7 +2,7 @@
   "name": "ponymark",
   "description": "Next-generation PageDown fork",
   "homepage": "https://github.com/bevacqua/ponymark",
-  "version": "1.1.4",
+  "version": "1.1.6",
   "author": {
     "name": "Nicolas Bevacqua",
     "email": "hello@bevacqua.io",
@@ -23,6 +23,7 @@
     "fs-extra": "^0.9.1",
     "imgur-client": "^1.0.0",
     "mkdirp": "^0.5.0",
+    "nib": "^1.0.3",
     "raf": "^2.0.0",
     "tmp": "0.0.23",
     "ultramarked": "^0.8.0",
