@@ -4,8 +4,7 @@ var ui = require('./ui')
 var settings = { lineLength: 72 };
 var re = RegExp;
 
-function CommandManager (pluginHooks, getString) {
-  this.hooks = pluginHooks;
+function CommandManager (getString) {
   this.getString = getString;
 }
 
@@ -152,7 +151,9 @@ function properlyEncoded (linkdef) {
 }
 
 $.doLinkOrImage = function (chunk, postProcessing, isImage) {
+  var self = this;
   var background;
+
   chunk.trimWhitespace();
   chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);
 
@@ -168,12 +169,8 @@ $.doLinkOrImage = function (chunk, postProcessing, isImage) {
       this.addLinkDef(chunk, null);
       return;
     }
-    var that = this;
-
     if (isImage) {
-      if (!this.hooks.insertImageDialog(linkEnteredCallback)){
-        ui.prompt('image', linkEnteredCallback);
-      }
+      ui.prompt('image', linkEnteredCallback);
     } else {
       ui.prompt('link', linkEnteredCallback);
     }
@@ -185,16 +182,16 @@ $.doLinkOrImage = function (chunk, postProcessing, isImage) {
       chunk.selection = (' ' + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, '$1\\').substr(1);
 
       var linkDef = ' [999]: ' + properlyEncoded(link);
-      var num = that.addLinkDef(chunk, linkDef);
+      var num = self.addLinkDef(chunk, linkDef);
       chunk.startTag = isImage ? '![' : '[';
       chunk.endTag = '][' + num + ']';
 
       if (!chunk.selection) {
         if (isImage) {
-          chunk.selection = that.getString('imagedescription');
+          chunk.selection = self.getString('imagedescription');
         }
         else {
-          chunk.selection = that.getString('linkdescription');
+          chunk.selection = self.getString('linkdescription');
         }
       }
     }
@@ -343,14 +340,11 @@ $.doBlockquote = function (chunk, postProcessing) {
     }
   }
 
-  chunk.selection = this.hooks.postBlockquoteCreation(chunk.selection);
-
   if (!/\n/.test(chunk.selection)) {
-    chunk.selection = chunk.selection.replace(/^(> *)/,
-      function (wholeMatch, blanks) {
-        chunk.startTag += blanks;
-        return '';
-      });
+    chunk.selection = chunk.selection.replace(/^(> *)/, function (wholeMatch, blanks) {
+      chunk.startTag += blanks;
+      return '';
+    });
   }
 };
 

@@ -20,6 +20,7 @@
   "browser": "src/ponymark.js",
   "dependencies": {
     "contra": "^1.6.3",
+    "contra.emitter": "^1.0.0",
     "fs-extra": "^0.9.1",
     "imgur-client": "^1.0.0",
     "mkdirp": "^0.5.0",

@@ -27,6 +27,8 @@ function ponymark (containers) {
 
   editor = new Editor(postfix);
   editor.run();
+
+  return editor.api;
 }
 
 function markup (containers, postfix) {

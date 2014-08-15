@@ -1,5 +1,6 @@
 'use strict';
 
+var emitter = require('contra.emitter');
 var ui = require('./ui');
 var util = require('./util');
 var position = require('./position');
@@ -8,7 +9,6 @@ var UndoManager = require('./UndoManager');
 var UIManager = require('./UIManager');
 var CommandManager = require('./CommandManager');
 var PreviewManager = require('./PreviewManager');
-var HookCollection = require('./HookCollection');
 
 var defaultsStrings = {
   bold: 'Strong <strong> Ctrl+B',
@@ -49,13 +49,9 @@ function Editor (postfix, opts) {
     return options.strings[identifier] || defaultsStrings[identifier];
   }
 
+  var api = emitter();
   var self = this;
-  var hooks = self.hooks = new HookCollection();
   var panels;
-
-  hooks.addNoop('onPreviewRefresh');
-  hooks.addNoop('postBlockquoteCreation');
-  hooks.addFalse('insertImageDialog');
 
   self.run = function () {
     if (panels) {
@@ -64,8 +60,10 @@ function Editor (postfix, opts) {
 
     panels = new PanelCollection(postfix);
 
-    var commandManager = new CommandManager(hooks, getString);
-    var previewManager = new PreviewManager(panels, function () { hooks.onPreviewRefresh(); });
+    var commandManager = new CommandManager(getString);
+    var previewManager = new PreviewManager(panels, function () {
+      api.emit('refresh');
+    });
     var uiManager;
 
     var undoManager = new UndoManager(function () {
@@ -78,11 +76,13 @@ function Editor (postfix, opts) {
     uiManager = new UIManager(postfix, panels, undoManager, previewManager, commandManager, options.helpButton, getString);
     uiManager.setUndoRedoButtonStates();
 
-    self.refreshPreview = function () {
+    api.refresh = function () {
       previewManager.refresh(true);
     };
-    self.refreshPreview();
+    api.refresh();
   };
+
+  self.api = api;
 }
 
 module.exports = Editor;
