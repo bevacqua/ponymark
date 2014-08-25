@@ -12,6 +12,9 @@ function configure (opts) {
       configure.imageUploads = o.imageUploads;
     }
   }
+  if (o.markdown) {
+    configure.markdown = o.markdown;
+  }
 }
 
 module.exports = configure;

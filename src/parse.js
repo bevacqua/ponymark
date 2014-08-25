@@ -1,11 +1,7 @@
 'use strict';
 
-var ultramarked = require('ultramarked');
+var configure = require('./configure');
 
-ultramarked.setOptions({
-  smartLists: true,
-  ultralight: true,
-  ultrasanitize: true
-});
-
-module.exports = ultramarked;
+module.exports = function (text) {
+  return configure.markdown(text);
+};

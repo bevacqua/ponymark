@@ -26,6 +26,22 @@ npm i -S ponymark
 bower i -S ponymark
 ```
 
+Then you have to provide it with a function that can parse Markdown. This can be a function you wrote by yourself or a reference to a module such as a [ultramarked][9].
+
+```js
+ponymark.configure({
+  markdown: function (text) {
+    return parse(text);
+  }
+});
+```
+
+```js
+ponymark.configure({
+  markdown: require('ultramarked')
+});
+```
+
 ## Usage
 
 Just include the JavaScript and call the `ponymark` method on a `<div>`. You'll get a button bar, the editor, and a preview area just like the one in StackOverflow. Remember to include the CSS to get the button bar working correctly. You can include the Stylus sources directly. The syntax highlighting styles come bundled separately, so that you can pick any other you want.
@@ -93,20 +109,6 @@ The HTTP endpoint is expected to return a JSON response like the one below.
   "url": "http://i.imgur.com/cC3fCEN.jpg",
   "alt": "doge.png"
 }
-```
-
-### Markdown Engine
-
-Ponymark uses [**ultramarked**][9] to render your Markdown content. If you are rendering Markdown anywhere else, make sure to use that package, for consistent output. Check out how [Ponymark configures `ultramarked` here][10].
-
-```js
-var ultramarked = require('ultramarked');
-
-ultramarked.setOptions({
-  smartLists: true,
-  ultralight: true,
-  ultrasanitize: true
-});
 ```
 
 ## Screenshot
