@@ -53,13 +53,14 @@ var elem = document.querySelector('div');
 ponymark(elem);
 ```
 
-You can also pick individual containers for each of the three different parts of the editor. This is useful when you have multiple inputs and then want the preview to be placed somewhere else in the DOM.
+You can also pick individual containers for each of the three different parts of the editor. This is useful when you have multiple inputs and then want the preview to be placed somewhere else in the DOM. You can also set the `placeholder` attribute for the `<textarea>`.
 
 ```js
 ponymark({
   buttons: document.querySelector('header'),
   input: document.querySelector('div'),
-  preview: document.querySelector('footer')
+  preview: document.querySelector('footer'),
+  placeholder: 'Your text goes here'
 });
 ```
 
