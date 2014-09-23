@@ -11,19 +11,19 @@ function convertTabs () {
   util.addEventDelegate(doc, 'pmk-input', 'keydown', ui.convertTabs);
 }
 
-function ponymark (containers) {
+function ponymark (o) {
   var postfix = nextId++;
   var editor;
 
-  if (Object.prototype.toString.call(containers) !== '[object Object]') {
-    containers = {
-      buttons: containers,
-      input: containers,
-      preview: containers
+  if (Object.prototype.toString.call(o) !== '[object Object]') {
+    o = {
+      buttons: o,
+      input: o,
+      preview: o
     };
   }
 
-  markup(containers, postfix);
+  markup(o, postfix);
 
   editor = new Editor(postfix);
   editor.run();
@@ -31,22 +31,33 @@ function ponymark (containers) {
   return editor.api;
 }
 
-function markup (containers, postfix) {
+function markup (o, postfix) {
   var buttonBar = doc.createElement('div');
   var preview = doc.createElement('div');
-  var input = doc.createElement('textarea');
+  var existing = o.input && /textarea/i.test(o.input.tagName);
+  var input;
+
+  if (!existing) {
+    input = doc.createElement('textarea');
+    input.className = 'pmk-input';
+    input.placeholder = o.placeholder || o.input.getAttribute('placeholder') || '';
+  } else {
+    input = o.input;
+  }
+  input.id = 'pmk-input-' + postfix;
 
   buttonBar.id = 'pmk-buttons-' + postfix;
   buttonBar.className = 'pmk-buttons';
   preview.id = 'pmk-preview-' + postfix;
   preview.className = 'pmk-preview';
-  input.id = 'pmk-input-' + postfix;
-  input.className = 'pmk-input';
-  input.placeholder = containers.placeholder || containers.input.getAttribute('placeholder') || '';
 
-  containers.buttons.appendChild(buttonBar);
-  containers.input.appendChild(input);
-  containers.preview.appendChild(preview);
+  o.buttons.appendChild(buttonBar);
+
+  if (!existing) {
+    o.input.appendChild(input);
+  }
+
+  o.preview.appendChild(preview);
 }
 
 module.exports = ponymark;
