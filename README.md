@@ -44,23 +44,21 @@ ponymark.configure({
 
 ## Usage
 
-Just include the JavaScript and call the `ponymark` method on a `<div>`. You'll get a button bar, the editor, and a preview area just like the one in StackOverflow. Remember to include the CSS to get the button bar working correctly. You can include the Stylus sources directly. The syntax highlighting styles come bundled separately, so that you can pick any other you want.
+Just include the JavaScript and call the `ponymark` method on a `<textarea>` element. You'll get a button bar, the editor, and a preview area just like the one in StackOverflow. Remember to include the CSS to get the button bar working correctly. You can include the Stylus sources directly. The syntax highlighting styles come bundled separately, so that you can pick any other you want.
 
 [Test syntax highlighting themes here][2], then [download them here][3]. Just include the style files as is, and you'll be fine.
 
 ```js
-var elem = document.querySelector('div');
+var elem = document.querySelector('textarea');
 ponymark(elem);
 ```
 
-You can also pick individual containers for each of the three different parts of the editor. This is useful when you have multiple inputs and then want the preview to be placed somewhere else in the DOM. You can also set the `placeholder` attribute for the `<textarea>`.
+You can also specify different containers for the editor and the HTML preview. This is useful when you have multiple inputs and then want the preview to be placed somewhere else in the DOM.
 
 ```js
 ponymark({
-  buttons: document.querySelector('header'),
-  input: document.querySelector('div'),
-  preview: document.querySelector('footer'),
-  placeholder: 'Your text goes here'
+  textarea: document.querySelector('textarea'),
+  preview: document.querySelector('footer')
 });
 ```
 

@@ -29,25 +29,6 @@ function prompt (type, cb) {
   }
 }
 
-function convertTabs (e) {
-  var ta = e.target;
-  var keyCode = e.charCode || e.keyCode;
-  if (keyCode !== 9) {
-    return;
-  }
-  e.preventDefault();
-
-  var start = ta.selectionStart;
-  var end = ta.selectionEnd;
-  var val = ta.value;
-  var left = val.substring(0, start);
-  var right = val.substring(end);
-
-  ta.value = left + '    ' + right;
-  ta.selectionStart = ta.selectionEnd = start + 4;
-}
-
 module.exports = {
-  prompt: prompt,
-  convertTabs: convertTabs
+  prompt: prompt
 };
