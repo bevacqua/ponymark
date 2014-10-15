@@ -111,7 +111,7 @@ function arrangeImageUpload (dom, cb) {
       url: configure.imageUploads.url,
       body: form
     };
-    form.append('image', file, file.name);
+    form.append(configure.imageUploads.key, file, file.name);
     up.upload.classList.add('pmk-prompt-uploading');
     xhr(options, done);
 
