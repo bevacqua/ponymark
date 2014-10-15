@@ -14,69 +14,68 @@ function defaultLocalUrl (local, file) {
   return file.replace(local, '/img/uploads');
 }
 
-function images (options) {
-  var opts = {
+function imageUpload (options, done) {
+  var o = {
+    image: options.image,
     imgur: options.imgur,
     local: options.local || defaultLocal,
-    localUrl: options.localUrl || defaultLocalUrl
+    localUrl: options.localUrl || defaultLocalUrl,
+    production: options.production || production
   };
-  if (opts.imgur) {
-    imgurClient = imgur(opts.imgur);
+  if (o.imgur) {
+    imgurClient = imgur(o.imgur);
   }
-  if (!production) {
-    mkdirp.sync(opts.local);
+  if (!o.production) {
+    mkdirp.sync(o.local);
   }
 
-  return function imageUploads (req, res, fallthrough) {
-    var image = req.files ? req.files.image : null;
-    if (!image) {
-      res.json(400, { error: 'No image received on the back-end' });
-    } else if (imgurClient) {
-      imgurUpload(req, res, fallthrough, image);
-    } else if (!production) {
-      fileUpload(req, res, fallthrough, image, opts);
-    } else {
-      fallthrough();
-    }
-  };
+  if (!o.image) {
+    done(new Error('No image received on the back-end'));
+  } else if (imgurClient) {
+    imgurUpload(o, done);
+  } else if (!o.production) {
+    fileUpload(o, done);
+  } else {
+    done(new Error('Misconfigured ponymark.imageUpload!'));
+  }
 }
 
-function imgurUpload (req, res, fallthrough, image) {
-  imgurClient.upload(image.path, function (data) {
-    if (data.error) {
-      fallthrough(data.error); return;
+function imgurUpload (o, done) {
+  imgurClient.upload(o.image.path, function (err, data) {
+    if (err) {
+      done(err); return;
     }
 
-    res.json(200, {
-      alt: image.originalname,
+    done(null, {
+      alt: o.image.originalname,
       url: data.links.original
     });
   });
 }
 
-function fileUpload (req, res, fallthrough, image, opts) {
+function fileUpload (o, done) {
+  var template = path.join(o.local, 'XXXXXX' + o.image.extension);
+
   contra.waterfall([
     function (next) {
-      tmp.tmpName({
-        template: path.join(opts.local, 'XXXXXX' + image.extension)
-      }, next);
+      tmp.tmpName({ template: template }, next);
     },
     function (temp, next) {
-      fs.move(image.path, temp, function (err) {
+      fs.move(o.image.path, temp, function (err) {
         next(err, temp);
       });
     }
   ], function (err, temp) {
     if (err) {
-      fallthrough(err); return;
+      done(err); return;
     }
-    res.json(200, {
-      alt: image.originalname,
-      url: opts.localUrl(opts.local, temp)
+    done(null, {
+      alt: o.image.originalname,
+      url: o.localUrl(o.local, temp)
     });
   });
 }
 
 module.exports = {
-  images: images
+  imageUpload: imageUpload
 };

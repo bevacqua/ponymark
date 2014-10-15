@@ -2,7 +2,7 @@
   "name": "ponymark",
   "description": "Next-generation PageDown fork",
   "homepage": "https://github.com/bevacqua/ponymark",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "author": {
     "name": "Nicolas Bevacqua",
     "email": "hello@bevacqua.io",
@@ -22,7 +22,7 @@
     "contra": "^1.6.3",
     "contra.emitter": "^1.0.0",
     "fs-extra": "^0.9.1",
-    "imgur-client": "^1.0.0",
+    "imgur-client": "^2.0.0",
     "mkdirp": "^0.5.0",
     "nib": "^1.0.3",
     "raf": "^2.0.0",

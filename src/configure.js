@@ -6,7 +6,8 @@ function configure (opts) {
     if (typeof o.imageUploads === 'string') {
       configure.imageUploads = {
         method: 'PUT',
-        url: o.imageUploads
+        url: o.imageUploads,
+        key: 'image'
       };
     } else {
       configure.imageUploads = o.imageUploads;

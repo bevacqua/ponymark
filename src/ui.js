@@ -19,7 +19,7 @@ function prompt (type, cb) {
   }
 
   function preprocess (text) {
-    if (text !== null){ // Fixes common pasting errors.
+    if (text !== null){ // fixes common paste errors
       text = text.replace(/^http:\/\/(https?|ftp):\/\//, '$1://');
       if (text[0] !== '/' && !/^(?:https?|ftp):\/\//.test(text)){
         text = 'http://' + text;

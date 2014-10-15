@@ -189,8 +189,7 @@ $.doLinkOrImage = function (chunk, postProcessing, isImage) {
       if (!chunk.selection) {
         if (isImage) {
           chunk.selection = self.getString('imagedescription');
-        }
-        else {
+        } else {
           chunk.selection = self.getString('linkdescription');
         }
       }

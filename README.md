@@ -72,36 +72,56 @@ ponymark.configure({
 });
 ```
 
-You can specify a method by passing an object instead. The default method used is `PUT`.
+You can specify a method by passing an object instead. The default method used is `PUT`, and the default `FormData` key used to upload the image is `'image'`.
 
 ```js
 ponymark.configure({
   imageUploads: {
     method: 'POST',
-    url: '/api/v0/images'
+    url: '/api/v0/images',
+    key: 'imgur'
   }
 });
 ```
 
 ### Server-Side
 
-Ponymark will send requests to the specified HTTP resource with the user image. The image is named `image` in the `FormData`. As for the server-side, a default implementation is provided, and you can access it as demonstrated below.
+Ponymark will send requests to the specified HTTP resource with the user image. As for the server-side, a helper is provided, and you can use it as demonstrated below with your favorite web back-end of choice. Here's an example using `express@^4.1.2`.
 
 ```js
-var ponymark = require('ponymark');
+'use strict';
 
-app.put('/api/images', ponymark.images({
-  imgur: process.env.IMGUR_API_KEY,
-  local: path.resolve('./uploads'),
-  localUrl: function (file) {
-    return file.replace(local, '/img/uploads');
+var path = require('path');
+var ponymark = require('ponymark');
+var dir = path.resolve('./temp/images');
+
+module.exports = function (req, res, next) {
+  var options = {
+    // note that the key should match imageUploads.key, see above
+    image: req.files && req.files.image,
+    imgur: process.env.IMGUR_API_KEY,
+    local: dir
+  };
+
+  ponymark.imageUpload(options, uploaded);
+
+  function uploaded (err, result) {
+    if (err) {
+      errored(err.message); return;
+    }
+    res.status(200).json(result);
   }
-}));
+
+  function errored (message) {
+    res.status(400).json({ messages: [message] });
+  }
+};
+
 ```
 
 If an API key to [imgur][5] isn't provided, then the local file system will be used. That is super unreliable in production environments, so **either provide the API key, or implement your own endpoint**. The local file system functionality is entirely disabled when `process.env.NODE_ENV === 'production'`. The `local` option specifies the directory where files will be uploaded to, and the `localUrl` method is provided an absolute file path, and expects you to return the URL you'll be using to serve that file from. That url will only be used for the response.
 
-The HTTP endpoint is expected to return a JSON response like the one below.
+The HTTP endpoint is expected to return a JSON response like the one below. This is the type of response returned in `result` if the upload doesn't fail.
 
 ```json
 {
