@@ -1,6 +1,6 @@
 /**
  * ponymark - Next-generation PageDown fork
- * @version v3.0.0
+ * @version v3.1.0
  * @link https://github.com/bevacqua/ponymark
  * @license MIT
  */
@@ -136,4 +136,7 @@
 .pmk-prompt-uploading .pmk-prompt-browse,
 .pmk-prompt-uploading .pmk-prompt-dragdrop {
   display: none;
+}
+.pmk-prompt-progress {
+  cursor: not-allowed;
 }
