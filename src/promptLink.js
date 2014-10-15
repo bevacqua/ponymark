@@ -3,18 +3,20 @@
 var raf = require('raf');
 var promptRender = require('./promptRender');
 var cache;
+var ENTER_KEY = 13;
+var ESCAPE_KEY = 27;
 
 function draw (cb) {
-  if (!cache) {
-    cache = promptRender({
-      id: 'pmk-link-prompt',
-      title: 'Insert Link',
-      description: 'Type or paste the url to your link',
-      placeholder: 'http://example.com/ "optional title"'
-    });
-    init(cache, cb);
+  if (cache) {
+    cache.dialog.parentElement.removeChild(cache.dialog);
   }
-  cache.input.value = '';
+  cache = promptRender({
+    id: 'pmk-link-prompt',
+    title: 'Insert Link',
+    description: 'Type or paste the url to your link',
+    placeholder: 'http://example.com/ "optional title"'
+  });
+  init(cache, cb);
   cache.dialog.classList.add('pmk-prompt-open');
   raf(focus);
   return cache.dialog;
@@ -29,13 +31,24 @@ function init (dom, cb) {
   dom.close.addEventListener('click', close);
   dom.ok.addEventListener('click', ok);
 
-  dom.input.addEventListener('keypress', function (e) {
+  dom.input.addEventListener('keypress', enter);
+  dom.input.addEventListener('keydown', esc);
+
+  function enter (e) {
     var key = e.which || e.keyCode;
-    if (key === 13) {
+    if (key === ENTER_KEY) {
       ok();
       e.preventDefault();
     }
-  });
+  }
+
+  function esc (e) {
+    var key = e.which || e.keyCode;
+    if (key === ESCAPE_KEY) {
+      close();
+      e.preventDefault();
+    }
+  }
 
   function ok () {
     close();

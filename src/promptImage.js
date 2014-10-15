@@ -9,20 +9,16 @@ var fireEvent = require('./fireEvent');
 var cache;
 
 function draw (cb) {
-  if (!cache) {
-    cache = promptRender({
-      id: 'pmk-image-prompt',
-      title: 'Insert Image',
-      description: 'Type or paste the url to your image',
-      placeholder: 'http://example.com/public/doge.png "optional title"'
-    });
-    init(cache, cb);
+  if (cache) {
+    cache.dialog.parentElement.removeChild(cache.dialog);
   }
-  if (cache.up) {
-    cache.up.warning.classList.remove('pmk-prompt-error-show');
-    cache.up.failed.classList.remove('pmk-prompt-error-show');
-  }
-  cache.input.value = '';
+  cache = promptRender({
+    id: 'pmk-image-prompt',
+    title: 'Insert Image',
+    description: 'Type or paste the url to your image',
+    placeholder: 'http://example.com/public/doge.png "optional title"'
+  });
+  init(cache, cb);
   cache.dialog.classList.add('pmk-prompt-open');
   raf(focus);
   return cache.dialog;
@@ -63,7 +59,7 @@ function arrangeImageUpload (dom, cb) {
     e.dataTransfer.dropEffect = 'copy';
   }
 
-  function handleFileSelect(e) {
+  function handleFileSelect (e) {
     e.stopPropagation();
     e.preventDefault();
     go(e.dataTransfer.files);
