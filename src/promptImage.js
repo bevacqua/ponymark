@@ -109,8 +109,8 @@ function arrangeImageUpload (dom, cb) {
       },
       method: configure.imageUploads.method,
       url: configure.imageUploads.url,
-      body: form,
-      timeout: 15000
+      timeout: configure.imageUploads.timeout,
+      body: form
     };
     form.append(configure.imageUploads.key, file, file.name);
     up.upload.classList.add('pmk-prompt-uploading');
