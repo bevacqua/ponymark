@@ -1,6 +1,6 @@
 /**
  * ponymark - Next-generation PageDown fork
- * @version v3.3.0
+ * @version v3.3.1
  * @link https://github.com/bevacqua/ponymark
  * @license MIT
  */
@@ -38,7 +38,7 @@
 }
 .pmk-input {
   min-height: 60px;
-  max-height: 500px;
+  max-height: 650px;
   line-height: 1.2;
   height: 180px;
   width: 100%;
