@@ -1,6 +1,6 @@
 /**
  * ponymark - Next-generation PageDown fork
- * @version v3.3.1
+ * @version v3.3.2
  * @link https://github.com/bevacqua/ponymark
  * @license MIT
  */
