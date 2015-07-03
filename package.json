@@ -19,7 +19,7 @@
   "main": "src/node.js",
   "browser": "src/ponymark.js",
   "dependencies": {
-    "contra": "1.9.0",
+    "contra": "1.9.1",
     "fs-extra": "^0.9.1",
     "imgur-client": "^2.0.0",
     "mkdirp": "^0.5.0",
