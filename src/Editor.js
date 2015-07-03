@@ -1,6 +1,6 @@
 'use strict';
 
-var emitter = require('contra.emitter');
+var emitter = require('contra/emitter');
 var ui = require('./ui');
 var util = require('./util');
 var position = require('./position');

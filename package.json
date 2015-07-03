@@ -4,8 +4,8 @@
   "homepage": "https://github.com/bevacqua/ponymark",
   "version": "3.3.2",
   "author": {
-    "name": "Nicolas Bevacqua",
     "email": "hello@bevacqua.io",
+    "name": "Nicolas Bevacqua",
     "url": "http://ponyfoo.com"
   },
   "license": "MIT",
@@ -19,8 +19,7 @@
   "main": "src/node.js",
   "browser": "src/ponymark.js",
   "dependencies": {
-    "contra": "^1.6.3",
-    "contra.emitter": "^1.0.0",
+    "contra": "1.9.0",
     "fs-extra": "^0.9.1",
     "imgur-client": "^2.0.0",
     "mkdirp": "^0.5.0",
